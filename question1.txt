@@ -1,0 +1,33 @@
+#include <iostream>
+
+int main() {
+    // Constants for the roll rate equation
+    double Lp = 0.5;   // Roll damping coefficient
+    double Ldelta = 0.8;  // Aileron effectiveness
+    
+    // Initial conditions
+    double p0 = 1.0;  // Initial roll rate in rad/s
+    double delta_a = 1.0;  // Aileron deflection in rad
+    double delta_t = 0.01;  // Time step size in seconds
+    double t = 0.0;  // Initial time
+    
+    // Loop to predict the roll rate up to 5 seconds
+    while (t <= 5.0) {
+        double pdot = Lp * p0 + Ldelta * delta_a;
+        double p1 = p0 + pdot * delta_t;
+        
+        // Print the result at each time step
+        std::cout << "Time: " << t << " seconds, Roll Rate: " << p0 << " rad/s" << std::endl;
+        
+        // Update time and roll rate for the next iteration
+        t += delta_t;
+        p0 = p1;
+        
+        // Check if aileron deflection time has passed and set delta_a to 0
+        if (t >= 2.0) {
+            delta_a = 0.0;
+        }
+    }
+    
+    return 0;
+}
