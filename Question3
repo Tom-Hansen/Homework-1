@@ -1,0 +1,42 @@
+#include <iostream>
+
+int main() {
+    //Constants
+    double Lp = 0.2; //roll damping coefficient
+    double K0 = 2.0;  //feedback control gain
+    double alpha = 1.0; //rate
+
+    //Initial conditions
+    double p0 = 1.0; // Initial roll rate (rad/s)
+    double delta_timestep = 0.1; //time step (sec)
+    double t_max = 5.0; //Maximum simulation (sec)
+
+    //variables
+    double p = p0;
+    double delta_a = 0.0;
+    double K = K0;
+    double t = 0.0;
+
+    //loop
+    while (t <= t_max) {
+        std::cout << "Time: " << t << " seconds, Roll Rate: " << p << " rad/s" << std::endl;
+
+        //aileron deflection
+        delta_a = -K * p;
+
+        //new roll rate
+        double pdot = Lp * p + delta_a;
+        p += pdot * delta_timestep;
+
+        //Update the gain K
+        K += alpha * p * p;
+
+        //New time
+        t += delta_timestep;
+    }
+
+    return 0;
+}
+
+
+
