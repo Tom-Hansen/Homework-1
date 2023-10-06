@@ -1,0 +1,39 @@
+#include <iostream>
+#include <vector>
+#include <cmath>
+
+int main() {
+    // Constants for the aircraft
+    double Lp = 0.2; // Roll damping coefficient (replace with your own value)
+    double Ldelta = 0.5; // Aileron effectiveness (replace with your own value)
+
+    // Initial conditions
+    double p0 = 1.0; // Initial roll rate in rad/s
+    double delta_a = 1.0; // Aileron deflection in rad
+    double delta_t = 2.0; // Time for aileron deflection in seconds
+    double delta_timestep = 0.01; // Time step size in seconds
+    double t_max = 5.0; // Maximum simulation time in seconds
+
+    // Initialize variables
+    double p = p0;
+    double t = 0.0;
+
+    // Simulation loop
+    while (t <= t_max) {
+        // Print current time and roll rate
+        std::cout << "Time: " << t << " seconds, Roll Rate: " << p << " rad/s" << std::endl;
+
+        // Update roll rate using the equation of motion
+        double pdot = Lp * p + Ldelta * delta_a;
+        p += pdot * delta_timestep;
+
+        // Update time
+        t += delta_timestep;
+
+        // Check if aileron deflection time has passed
+        if (t > delta_t) {
+            delta_a = 0.0; // Aileron deflection is zero after delta_t seconds
+        }
+    }
+    return 0;
+}
