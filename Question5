@@ -1,0 +1,29 @@
+#include <iostream>
+#include <cmath>
+
+//computing the sigmoid
+double sigmoid(double z) {
+    return 1.0 / (1.0 + std::exp(-z));
+}
+
+//computing the gradient of sigmoid
+double gradient_sigmoid(double z) {
+    double sig = sigmoid(z);
+    return sig * (1.0 - sig);
+}
+
+int main() {
+    //given value
+    double z = 0.0176835;
+
+    //computing sigmoid(z) and the gradient
+    double sig_z = sigmoid(z);
+    double gradient_sig_z = gradient_sigmoid(z);
+
+    //results
+    std::cout << "Sigmoid(z): " << sig_z << std::endl;
+    std::cout << "Gradient of Sigmoid(z): " << gradient_sig_z << std::endl;
+
+    return 0;
+}
+
