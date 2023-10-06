@@ -1,0 +1,20 @@
+#include <iostream>
+
+//function
+double gradient_cost(double predicted_y, double actual_y) {
+    return 2.0 * (predicted_y - actual_y);
+}
+
+int main() {
+    //given values
+    double actual_y = 1.0;
+    double predicted_y = 0.504421;
+
+    //gradient of the cost function
+    double dC = gradient_cost(predicted_y, actual_y);
+
+    //result
+    std::cout << "Gradient of Cost: " << dC << std::endl;
+
+    return 0;
+}
